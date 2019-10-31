@@ -5,11 +5,13 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && rm /usr/bin/python \
   && ln -s /usr/bin/python3.6 /usr/bin/python \
-  && python -m pip install --upgrade pip \
-  && wget https://github.com/benbotto/py3-tf2-opencv-aarch64/releases/download/assets/tensorflow-2.0.0-cp36-cp36m-linux_aarch64.whl -O /tmp/tensorflow-2.0.0-cp36-cp36m-linux_aarch64.whl \
+  && python -m pip install --upgrade pip six numpy wheel setuptools mock 'future>=0.17.1' \
+  && python -m pip install --upgrade keras_applications --no-deps \
+  && python -m pip install --upgrade keras_preprocessing --no-deps \
+  && wget -q https://github.com/benbotto/py3-tf2-opencv-aarch64/releases/download/assets/tensorflow-2.0.0-cp36-cp36m-linux_aarch64.whl -O /tmp/tensorflow-2.0.0-cp36-cp36m-linux_aarch64.whl \
   && pip install /tmp/tensorflow-2.0.0-cp36-cp36m-linux_aarch64.whl \
   && rm /tmp/tensorflow-2.0.0-cp36-cp36m-linux_aarch64.whl \
-  && wget https://github.com/benbotto/py3-tf2-opencv-aarch64/releases/download/assets/cv2.4.1.0.tgz -O /tmp/cv2.tgz \
+  && wget -q https://github.com/benbotto/py3-tf2-opencv-aarch64/releases/download/assets/cv2.4.1.0.tgz -O /tmp/cv2.tgz \
   && tar -zxf /tmp/cv2.tgz --directory /tmp \
   && rm /tmp/cv2.tgz \
   && cp -R /tmp/cv2/lib/* /usr/local/lib \
